@@ -1,0 +1,21 @@
+# Clauger Pre-commit Hooks
+# Tous les hooks sont inclus directement dans ce repo
+
+# =============================================================================
+# Détection de secrets et clés
+# =============================================================================
+
+- id: detect-private-key
+  name: Detect Private Key
+  description: Detect private keys in staged files
+  entry: detect-private-key
+  language: python
+  types: [text]
+
+- id: gitleaks
+  name: Detect secrets with gitleaks
+  description: Detect hardcoded secrets using gitleaks
+  entry: ./run-gitleaks.sh
+  language: script
+  pass_filenames: false
+  require_serial: true

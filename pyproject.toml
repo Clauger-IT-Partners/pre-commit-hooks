@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pre-commit-hooks"
+version = "1.0.0"
+description = "Pre-commit hooks personnalisés Clauger"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+dependencies = [
+    "pyyaml>=6.0",
+]
+
+[project.scripts]
+detect-private-key = "pre_commit_hooks.detect_private_key:main"
+
+[tool.setuptools.packages.find]
+where = ["."]

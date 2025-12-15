@@ -1,0 +1,146 @@
+# Configuration Gitleaks pour la détection de secrets
+# Documentation: https://github.com/gitleaks/gitleaks
+
+title = "Gitleaks Configuration"
+
+# Utiliser les règles par défaut de gitleaks + nos règles personnalisées
+[extend]
+useDefault = true
+
+# Fichiers et dossiers à ignorer globalement
+[allowlist]
+description = "Allowlist global"
+paths = [
+    '''node_modules''',
+    '''\.git''',
+    '''dist''',
+    '''build''',
+    '''\.next''',
+    '''coverage''',
+    '''\.nyc_output''',
+    '''package-lock\.json''',
+    '''yarn\.lock''',
+    '''pnpm-lock\.yaml''',
+]
+
+# Règles personnalisées pour détecter des patterns spécifiques
+
+[[rules]]
+id = "generic-api-key"
+description = "Generic API Key"
+regex = '''(?i)(api[_-]?key|apikey)\s*[:=]\s*['"]?([a-zA-Z0-9_\-]{20,})['"]?'''
+keywords = ["api_key", "apikey", "api-key"]
+
+[[rules]]
+id = "generic-secret"
+description = "Generic Secret"
+regex = '''(?i)(secret|password|passwd|pwd|token)\s*[:=]\s*['"]?([a-zA-Z0-9_\-!@#$%^&*]{8,})['"]?'''
+keywords = ["secret", "password", "passwd", "pwd", "token"]
+
+[[rules]]
+id = "azure-tenant-id"
+description = "Azure Tenant ID (potential)"
+regex = '''(?i)tenant[_-]?id\s*[:=]\s*['"]?([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})['"]?'''
+keywords = ["tenant_id", "tenantid", "tenant-id"]
+
+[[rules]]
+id = "azure-client-secret"
+description = "Azure Client Secret"
+regex = '''(?i)(client[_-]?secret|azure[_-]?secret)\s*[:=]\s*['"]?([a-zA-Z0-9_\-~.]{30,})['"]?'''
+keywords = ["client_secret", "clientsecret", "azure_secret"]
+
+[[rules]]
+id = "jwt-token"
+description = "JWT Token"
+regex = '''eyJ[a-zA-Z0-9_-]*\.eyJ[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*'''
+keywords = ["eyJ"]
+
+[[rules]]
+id = "private-key"
+description = "Private Key"
+regex = '''-----BEGIN (RSA |DSA |EC |OPENSSH |PGP |ENCRYPTED )?PRIVATE KEY( BLOCK)?-----'''
+keywords = ["BEGIN", "PRIVATE KEY"]
+
+[[rules]]
+id = "aws-access-key"
+description = "AWS Access Key ID"
+regex = '''(A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}'''
+keywords = ["AKIA", "AGPA", "AIDA", "AROA", "AIPA", "ANPA", "ANVA", "ASIA"]
+
+[[rules]]
+id = "aws-secret-key"
+description = "AWS Secret Access Key"
+regex = '''(?i)aws[_-]?secret[_-]?access[_-]?key\s*[:=]\s*['"]?([a-zA-Z0-9/+=]{40})['"]?'''
+keywords = ["aws_secret_access_key", "aws-secret-access-key"]
+
+[[rules]]
+id = "github-token"
+description = "GitHub Token"
+regex = '''(ghp|gho|ghu|ghs|ghr)_[a-zA-Z0-9]{36,}'''
+keywords = ["ghp_", "gho_", "ghu_", "ghs_", "ghr_"]
+
+[[rules]]
+id = "gitlab-token"
+description = "GitLab Token"
+regex = '''glpat-[a-zA-Z0-9\-]{20,}'''
+keywords = ["glpat-"]
+
+[[rules]]
+id = "slack-token"
+description = "Slack Token"
+regex = '''xox[baprs]-[0-9]{10,13}-[0-9]{10,13}[a-zA-Z0-9-]*'''
+keywords = ["xoxb", "xoxa", "xoxp", "xoxr", "xoxs"]
+
+[[rules]]
+id = "stripe-key"
+description = "Stripe API Key"
+regex = '''(sk|pk)_(test|live)_[a-zA-Z0-9]{20,}'''
+keywords = ["sk_test", "sk_live", "pk_test", "pk_live"]
+
+[[rules]]
+id = "openai-key"
+description = "OpenAI API Key"
+regex = '''sk-[a-zA-Z0-9]{20,}T3BlbkFJ[a-zA-Z0-9]{20,}'''
+keywords = ["sk-"]
+
+[[rules]]
+id = "sendgrid-key"
+description = "SendGrid API Key"
+regex = '''SG\.[a-zA-Z0-9_-]{22}\.[a-zA-Z0-9_-]{43}'''
+keywords = ["SG."]
+
+[[rules]]
+id = "twilio-key"
+description = "Twilio API Key"
+regex = '''SK[a-f0-9]{32}'''
+keywords = ["SK"]
+
+[[rules]]
+id = "npm-token"
+description = "NPM Access Token"
+regex = '''npm_[a-zA-Z0-9]{36}'''
+keywords = ["npm_"]
+
+[[rules]]
+id = "anthropic-api-key"
+description = "Anthropic/Claude API Key"
+regex = '''sk-ant-api[a-zA-Z0-9\-_]{80,}'''
+keywords = ["sk-ant-api"]
+
+[[rules]]
+id = "anthropic-secret-key"
+description = "Anthropic Secret Key"
+regex = '''sk-ant-[a-zA-Z0-9\-_]{40,}'''
+keywords = ["sk-ant-"]
+
+[[rules]]
+id = "azure-ad-client-secret"
+description = "Azure AD/Entra ID Client Secret (with tilde)"
+regex = '''[a-zA-Z0-9]{3,8}~[a-zA-Z0-9\-_\.]{30,45}'''
+keywords = ["~"]
+
+[[rules]]
+id = "database-url"
+description = "Database Connection String"
+regex = '''(?i)(postgres|mysql|mongodb|redis):\/\/[^\s'"]+:[^\s'"]+@[^\s'"]+'''
+keywords = ["postgres://", "mysql://", "mongodb://", "redis://"]
