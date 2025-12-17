@@ -19,3 +19,15 @@
   language: script
   pass_filenames: false
   require_serial: true
+
+# =============================================================================
+# Protection de fichiers/dossiers
+# =============================================================================
+
+- id: protect-paths
+  name: Protect paths from changes
+  description: Block commits that modify protected directories or files
+  entry: protect-paths
+  language: python
+  always_run: true
+  pass_filenames: true
