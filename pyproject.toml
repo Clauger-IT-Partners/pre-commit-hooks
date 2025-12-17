@@ -16,6 +16,7 @@ dependencies = [
 [project.scripts]
 detect-private-key = "pre_commit_hooks.detect_private_key:main"
 protect-paths = "pre_commit_hooks.protect_paths:main"
+clauger-hooks = "pre_commit_hooks.all_hooks:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
