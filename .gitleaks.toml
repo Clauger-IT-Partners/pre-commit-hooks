@@ -32,18 +32,6 @@ regex = '''(?i)(api[_-]?key|apikey)\s*[:=]\s*['"]?([a-zA-Z0-9_\-]{20,})['"]?'''
 keywords = ["api_key", "apikey", "api-key"]
 
 [[rules]]
-id = "generic-secret"
-description = "Generic Secret"
-regex = '''(?i)(secret|password|passwd|pwd|token)\s*[:=]\s*['"]?([a-zA-Z0-9_\-!@#$%^&*]{8,})['"]?'''
-keywords = ["secret", "password", "passwd", "pwd", "token"]
-
-[[rules]]
-id = "azure-tenant-id"
-description = "Azure Tenant ID (potential)"
-regex = '''(?i)tenant[_-]?id\s*[:=]\s*['"]?([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})['"]?'''
-keywords = ["tenant_id", "tenantid", "tenant-id"]
-
-[[rules]]
 id = "azure-client-secret"
 description = "Azure Client Secret"
 regex = '''(?i)(client[_-]?secret|azure[_-]?secret)\s*[:=]\s*['"]?([a-zA-Z0-9_\-~.]{30,})['"]?'''
