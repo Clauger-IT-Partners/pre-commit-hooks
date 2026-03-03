@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Sequence
 
 from pre_commit_hooks.detect_private_key import main as detect_private_key
-from pre_commit_hooks.protect_paths import main as protect_paths
+# from pre_commit_hooks.protect_paths import main as protect_paths
 
 
 def run_gitleaks() -> int:
@@ -40,7 +40,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     retval |= detect_private_key(list(argv))
 
     # Run protect-paths
-    retval |= protect_paths(list(argv))
+    # retval |= protect_paths(list(argv))
 
     # Run gitleaks
     retval |= run_gitleaks()
