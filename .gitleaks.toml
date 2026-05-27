@@ -122,6 +122,12 @@ regex = '''sk-ant-[a-zA-Z0-9\-_]{40,}'''
 keywords = ["sk-ant-"]
 
 [[rules]]
+id = "clauger-internal-api-key"
+description = "Clauger internal API key (SMART Gateway, mail, etc. — format sk-<service>-<hex>)"
+regex = '''sk-[a-z0-9]{2,}-[a-f0-9]{40,}'''
+keywords = ["sk-smart-", "sk-mail-", "sk-"]
+
+[[rules]]
 id = "azure-ad-client-secret"
 description = "Azure AD/Entra ID Client Secret (with tilde)"
 regex = '''[a-zA-Z0-9]{3,8}~[a-zA-Z0-9\-_\.]{30,45}'''
